@@ -28,7 +28,7 @@ public class SilenceCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
             toggleSilenceMode(player);
         } else if (args.length == 1) {
-            handleSilenceCommand(player, commandSender, args[0]);
+            handleSilenceCommand(commandSender, args[0]);
         } else {
             commandSender.sendMessage("指令使用方法：/mute [on/off]");
             return false;
@@ -36,6 +36,11 @@ public class SilenceCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    /**
+     * 切换静音模式
+     *
+     * @param player 玩家
+     */
     private void toggleSilenceMode(Player player) {
         if (plugin.isSilencePlayer(player.getUniqueId())) {
             plugin.removeSilencePlayer(player.getUniqueId());
@@ -46,7 +51,17 @@ public class SilenceCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    private void handleSilenceCommand(Player player, CommandSender commandSender, String arg) {
+    /**
+     * 处理静音命令
+     *
+     * @param commandSender 命令发送人
+     * @param arg           命令参数, on/off
+     */
+    private void handleSilenceCommand(CommandSender commandSender, String arg) {
+        if (!(commandSender instanceof Player player)) {
+            commandSender.sendMessage("只有玩家可以进行该操作。");
+            return;
+        }
         switch (arg.toLowerCase()) {
             case "on" -> {
                 if (!plugin.isSilencePlayer(player.getUniqueId())) {
