@@ -1,0 +1,11 @@
+name: AlsaceSilence
+version: '${version}'
+main: work.alsace.alsacesilence.AlsaceSilence
+api-version: '1.20'
+authors:
+  - popoka_
+  - Hanamizu_
+commands:
+  silence:
+    usage: /silence [on/off]
+    description: Toggle the silence mode.
